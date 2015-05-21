@@ -39,34 +39,35 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := krait
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 # Flags
 COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
-TARGET_QCOM_AUDIO_VARIANT := caf
-TARGET_QCOM_DISPLAY_VARIANT := caf
-TARGET_QCOM_MEDIA_VARIANT := caf
-TARGET_USES_QCOM_BSP := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_LEGACY_ALSA_AUDIO := true
-TARGET_USES_QCOM_COMPRESSED_AUDIO := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 
+# Use dlmalloc instead of jemalloc for mallocs
+MALLOC_IMPL := dlmalloc
+
 # Graphics
-USE_OPENGL_RENDERER := true
+BOARD_EGL_CFG := device/htc/msm8960-common/configs/egl.cfg
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_DISPLAY_USE_RETIRE_FENCE := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
-BOARD_EGL_CFG := device/htc/msm8960-common/configs/egl.cfg
+USE_OPENGL_RENDERER := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -74,28 +75,5 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/htc/msm8960-common/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    app.te \
-    bluetooth.te \
-    device.te \
-    domain.te \
-    drmserver.te \
-    file_contexts \
-    file.te \
-    hci_init.te \
-    healthd.te \
-    init_shell.te \
-    init.te \
-    keystore.te \
-    kickstart.te \
-    mediaserver.te \
-    rild.te \
-    surfaceflinger.te \
-    system.te \
-    ueventd.te \
-    wpa_socket.te \
-    wpa.te
+# Recovery
+TARGET_RECOVERY_DEVICE_MODULES += chargeled
